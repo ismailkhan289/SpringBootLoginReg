@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup_style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+</head>
+
+<body class="body">
+<div class="login-page">
+    <div class="form">
+
+        <!-- ✅ Corrected Form: Uses Thymeleaf to Submit Data -->
+        <form th:action="@{/req/signup}" method="post">
+            <lottie-player src="https://assets4.lottiefiles.com/datafiles/XRVoUu3IX4sGWtiC3MPpFnJvZNq7lVWDCa8LSqgS/profile.json"
+                           background="transparent" speed="1"
+                           style="justify-content: center;" loop autoplay>
+            </lottie-player>
+
+            <input id="fullName" type="text" name="fullName" placeholder="Full Name" required/>
+            <input id="email" type="email" name="email" placeholder="Email Address" required/>
+            <input id="username" type="text" name="username" placeholder="Pick a Username" required/>
+            <input id="password" type="password"  name="password" placeholder="Set a Password" required/>
+            <input id="confirmPassword" type="password"  name="confirmPassword" placeholder="Retype Password" required/>
+            <i class="fas fa-eye" onclick="show()"></i>
+
+            <br><br>
+            <button id="submit" type="submit">SIGN UP</button>
+        </form>
+
+        <!-- ✅ Login Button Redirects to Login Page -->
+        <button type="button" onclick="window.location.href='/login'">LOGIN</button>
+
+    </div>
+</div>
+
+<script>
+    function show() {
+        var password = document.getElementById("password");
+        if (password.type === "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
+    }
+    const submitButton = document.getElementById("submit");
+    submitButton.addEventListener("click", function() {
+        const fullName = document.getElementById("fullName").value;
+        const email = document.getElementById("email").value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword= document.getElementById("confirmPassword").value;
+        const data ={
+            email: email,
+            username: username,
+            password: password
+        };  
+        if(password==confirmPassword){
+          const jsonData=JSON.stringify(data);//convert data to json
+            fetch('/req/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        else{
+            alert("Passwords do not match");
+        }
+    });
+</script>
+
+</body>
+</html>

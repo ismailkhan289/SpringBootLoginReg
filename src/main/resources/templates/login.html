@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/login_style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet">  
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+</head>
+
+<body class="body">
+
+<div class="login-page">
+  <div class="form">
+
+    <!-- ✅ Corrected Form: Uses Thymeleaf to Submit Data -->
+    <form th:action="@{/login}" method="post">
+      <lottie-player src="https://assets4.lottiefiles.com/datafiles/XRVoUu3IX4sGWtiC3MPpFnJvZNq7lVWDCa8LSqgS/profile.json"
+                     background="transparent" speed="1"
+                     style="justify-content: center;" loop autoplay>
+      </lottie-player>
+      <!-- Lottie animation for login page -->
+
+      <input type="text" name="username" placeholder="&#xf007;  Username" required/>
+      <!-- Font Awesome icon for user -->
+      <input type="password" id="password" name="password" placeholder="&#xf023;  Password" required/>
+      <!-- Font Awesome icon for password -->
+      <i class="fas fa-eye" onclick="show()"></i> 
+      <!-- change the type of the password field to text when the eye icon is clicked -->      
+      <br><br>
+      <button type="submit">LOGIN</button>
+      <p class="message" th:if="${param.error}">Invalid username or password</p>
+    </form>
+
+    <!-- ✅ Sign Up Button Redirects to Registration Page -->
+    <button type="button" onclick="window.location.href='/req/signup'">SIGN UP</button>
+
+  </div>
+</div>
+
+<script>
+    function show(){
+      var password = document.getElementById("password");
+
+      if(password.type === "password"){
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    }
+</script>
+
+</body>
+</html>
