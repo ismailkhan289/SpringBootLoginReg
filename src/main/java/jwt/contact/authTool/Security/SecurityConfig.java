@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration; // This is used to import the Configuration annotation
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configurers.provisioning.UserDetailsManagerConfigurer.UserDetailsBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity; 
 // This is used to import the HttpSecurity class
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +20,7 @@ import lombok.AllArgsConstructor;
 
 @Configuration // This is a configuration class
 @EnableWebSecurity // This is used to enable web security
-@AllArgsConstructor
+@AllArgsConstructor // This is used to generate a constructor with all the fields in the class
 public class SecurityConfig { // This is a class named SecurityConfig
 
 
@@ -55,13 +53,14 @@ public class SecurityConfig { // This is a class named SecurityConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity
-                .formLogin(login -> login 
-                        .loginPage("/login") // This is used to set the login page
-                        .permitAll() // This is used to permit all
+                .formLogin(httpForm -> { 
+                        httpForm.loginPage("/login").permitAll(); // This is used to permit all
+                        httpForm.defaultSuccessUrl("/index",true); // This is used to set 
+                        // the default success URL
                         
-                )
+                    })
                 .authorizeHttpRequests(auth -> auth // This is used to authorize HTTP requests
-                        .requestMatchers("/","/login", "/req/signup", "/css/**", "/js/**").permitAll()
+                        .requestMatchers( "/req/signup", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated() // This is used to authenticate any request
                 )                
                 .build(); // This is used to build the security filter chain

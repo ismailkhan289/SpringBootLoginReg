@@ -16,7 +16,8 @@
     <div class="form">
 
         <!-- ✅ Corrected Form: Uses Thymeleaf to Submit Data -->
-        <form th:action="@{/req/signup}" method="post">
+        <form th:action="@{/req/signup}" method="post"> <!-- Form Submission URL -->
+            <h2 style="text-shadow: 2cap;">Sign Up</h2>
             <lottie-player src="https://assets4.lottiefiles.com/datafiles/XRVoUu3IX4sGWtiC3MPpFnJvZNq7lVWDCa8LSqgS/profile.json"
                            background="transparent" speed="1"
                            style="justify-content: center;" loop autoplay>
@@ -27,7 +28,7 @@
             <input id="username" type="text" name="username" placeholder="Pick a Username" required/>
             <input id="password" type="password"  name="password" placeholder="Set a Password" required/>
             <input id="confirmPassword" type="password"  name="confirmPassword" placeholder="Retype Password" required/>
-            <i class="fas fa-eye" onclick="show()"></i>
+            <i class="fas fa-eye" onclick="show()"></i> <!-- Show Password Icon -->
 
             <br><br>
             <button id="submit" type="submit">SIGN UP</button>
@@ -40,10 +41,10 @@
 </div>
 
 <script>
-    function show() {
-        var password = document.getElementById("password");
-        if (password.type === "password") {
-            password.type = "text";
+    function show() { //function to show password
+        var password = document.getElementById("password"); //get password input
+        if (password.type === "password") { //check if password is in password type
+            password.type = "text"; //if yes change to text
         } else {
             password.type = "password";
         }
@@ -55,21 +56,21 @@
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
         const confirmPassword= document.getElementById("confirmPassword").value;
-        const data ={
+        const data ={ //data to be sent
             email: email,
             username: username,
             password: password
         };  
-        if(password==confirmPassword){
+        if(password==confirmPassword){ //check if password and confirm password are same
           const jsonData=JSON.stringify(data);//convert data to json
-            fetch('/req/signup', {
-                method: 'POST',
-                headers: {
+            fetch('/req/signup', { //fetch request to signup
+                method: 'POST', //post method
+                headers: { //headers
                     'Content-Type': 'application/json',
                 },
                 body: jsonData
             })
-            .then(response => response.json())
+            .then(response => response.json()) //convert response to json
             .then(data => {
                 console.log('Success:', data);
             })
@@ -77,7 +78,7 @@
                 console.error('Error:', error);
             });
         }
-        else{
+        else{ //if password and confirm password are not same
             alert("Passwords do not match");
         }
     });
