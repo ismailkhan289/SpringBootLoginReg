@@ -1,3 +1,11 @@
+/**
+ * This class is a Spring Security configuration class for the AuthTool application.
+ * It sets up the security filter chain, authentication provider, password encoder,
+ * and user details service. It also configures form-based login and authorizes HTTP requests.
+ */
+/**
+ * Importing necessary classes and annotations for Spring Security configuration.
+ */
 package jwt.contact.authTool.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;

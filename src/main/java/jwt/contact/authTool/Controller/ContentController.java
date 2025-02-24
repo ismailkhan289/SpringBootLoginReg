@@ -1,5 +1,13 @@
+/**
+ * This file is part of the AuthTool project, specifically within the Controller package.
+ * 
+ * The ContentController class is responsible for handling HTTP requests related to content management.
+ * It leverages Spring Security's Authentication mechanism to manage and verify user authentication.
+ * 
+ * The import statement included here is for the Authentication class from the Spring Security 
+ * framework, which is used to represent the principal currently authenticated.
+ */
 package jwt.contact.authTool.Controller;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +34,12 @@ public class ContentController { // This is a class named ContentController
     @GetMapping("/req/signup") 
     // This is a method that maps HTTP GET requests onto specific handler methods
     public String signup() { 
+        // ✅ Check if user is already authenticated and coming on signup page then redirect to index page
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) { 
+            // ✅ Check if user is already authenticated
+            return "redirect:/index"; // ✅ Redirect to index page
+        }
         return "signup";
     }
     

@@ -1,3 +1,28 @@
+/**
+ * This controller handles user registration requests.
+ * It provides an endpoint for creating new users.
+ * 
+ * Dependencies:
+ * - MyAppUserRepository: Repository for managing user data.
+ * - PasswordEncoder: Utility for encoding user passwords.
+ * 
+ * Endpoint:
+ * - POST /req/signup: Creates a new user with the provided details.
+ * 
+ * Example request body:
+ * {
+ *   "username": "exampleUser",
+ *   "password": "examplePassword",
+ *   "email": "user@example.com"
+ * }
+ * 
+ * Example response:
+ * {
+ *   "id": 1,
+ *   "username": "exampleUser",
+ *   "email": "user@example.com"
+ * }
+ */
 package jwt.contact.authTool.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;

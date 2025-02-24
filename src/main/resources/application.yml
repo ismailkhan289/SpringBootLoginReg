@@ -18,7 +18,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop  # ✅ Better for development (use `create-drop` only if needed)
+      ddl-auto: update   # ✅ Better for development (use `create-drop` only if needed)
     show-sql: true
     properties:
       hibernate:
