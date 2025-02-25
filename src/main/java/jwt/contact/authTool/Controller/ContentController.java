@@ -1,11 +1,14 @@
+
 /**
- * This file is part of the AuthTool project, specifically within the Controller package.
+ * This file defines the ContentController class, which handles HTTP GET requests
+ * for the login, signup, and home pages in a Spring Boot application.
  * 
- * The ContentController class is responsible for handling HTTP requests related to content management.
- * It leverages Spring Security's Authentication mechanism to manage and verify user authentication.
+ * The controller provides the following endpoints:
+ * - /login: Redirects authenticated users to the index page, otherwise returns the login view.
+ * - /req/signup: Redirects authenticated users to the index page, otherwise returns the signup view.
+ * - /index: Returns the index view.
  * 
- * The import statement included here is for the Authentication class from the Spring Security 
- * framework, which is used to represent the principal currently authenticated.
+ * The controller uses Spring Security to check the authentication status of users.
  */
 package jwt.contact.authTool.Controller;
 import org.springframework.security.core.Authentication;
@@ -13,41 +16,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller // This is a controller class
-public class ContentController { // This is a class named ContentController
+@Controller
+public class ContentController {
 
-    @GetMapping("/login") 
-    // This is a method that maps HTTP GET requests onto specific handler methods
-    public String login() { // This is a method named login
-        
+    @GetMapping("/login")
+    public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        // ✅ Check if user is already authenticated
-        if (auth != null && auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) { 
-            // ✅ Check if user is already authenticated
-            return "redirect:/index"; // ✅ Redirect to index page
+        if (auth != null && auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) {
+            return "redirect:/index";
         }
-
-        return "login"; // ✅ Show login page if user is not logged in
+        return "login";
     }
 
-    @GetMapping("/req/signup") 
-    // This is a method that maps HTTP GET requests onto specific handler methods
-    public String signup() { 
-        // ✅ Check if user is already authenticated and coming on signup page then redirect to index page
+    @GetMapping("/req/signup")
+    public String signup() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) { 
-            // ✅ Check if user is already authenticated
-            return "redirect:/index"; // ✅ Redirect to index page
+        if (auth != null && auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) {
+            return "redirect:/index";
         }
         return "signup";
     }
-    
-    @GetMapping("/index") 
-    // This is a method that maps HTTP GET 
-     //requests onto specific handler methods
-    public String home() { 
-        return "index";
-    } 
 
+    @GetMapping("/index")
+    public String home() {
+        return "index";
+    }
 }

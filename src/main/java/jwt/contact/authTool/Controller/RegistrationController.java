@@ -23,14 +23,13 @@
  *   "email": "user@example.com"
  * }
  */
-package jwt.contact.authTool.Controller;
 
+package jwt.contact.authTool.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import jwt.contact.authTool.Model.MyAppUser;
 import jwt.contact.authTool.Model.MyAppUserRepository;
 
